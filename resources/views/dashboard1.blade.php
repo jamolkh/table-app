@@ -4,14 +4,22 @@
             {{ __('Dashboard') }}
 
     </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
+    <div class="">
+        <table class="shadow-lg bg-white">
+            <thead>
+            <tr>
+            <th class="bg-blue-100 border text-left px-8 py-4">Должность</th>
+            <th class="bg-blue-100 border text-left px-8 py-4">Плановый показатель</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach ($variableCosts as $variableCost)
+            <tr>
+            <td class="border px-8 py-4">{{$variableCost->name}}</td>
+            <td class="border px-2 py-2">{{$variableCost->amount}} сум</td>
+            </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </x-app-layout>

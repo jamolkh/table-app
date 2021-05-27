@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VariableCostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +21,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-Route::get('/dashboard1', function () {
-    return view('dashboard1');
-})->middleware(['auth'])->name('dashboard1');
-
+Route::get('/dashboard1',[VariableCostsController::class, 'index' ])->middleware(['auth'])->name('dashboard1');
+Route::get('/business-plans', function(){
+    return view('business-plans');
+})->middleware(['auth'])->name('business-plans');
 require __DIR__.'/auth.php';
