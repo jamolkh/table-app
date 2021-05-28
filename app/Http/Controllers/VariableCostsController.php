@@ -11,6 +11,6 @@ class VariableCostsController extends Controller
     {
         $variableCosts = VariableCosts::all();
 
-        return view('dashboard1', ['variableCosts' => $variableCosts]);
+        return view('dashboard1', ['variableCosts' => $variableCosts, 'title' => 'Переменные Затраты', 'header' => 'Люди']);
     }
 }

@@ -35,8 +35,11 @@
                                 <x-left-nav :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                     {{ __('Analytics') }}
                                 </x-left-nav>
-                                <x-left-nav :href="route('dashboard1')" :active="request()->routeIs('dashboard1')">
-                                    {{ __('Dashboard1') }}
+                                <x-left-nav :href="route('view.variable_costs')" :active="request()->routeIs('dashboard1')">
+                                    {{ __('Переменные Затраты') }}
+                                </x-left-nav>
+                                <x-left-nav :href="route('view.fixed_costs')" :active="request()->routeIs('dashboard2')">
+                                    {{ __('Постоянные Затраты') }}
                                 </x-left-nav>
                             </ul>
                         </div>
