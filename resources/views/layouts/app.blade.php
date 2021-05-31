@@ -33,7 +33,7 @@
                         <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
                             <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
                                 <x-left-nav :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                    {{ __('Analytics') }}
+                                    {{ __('Проекты') }}
                                 </x-left-nav>
                                 <x-left-nav :href="route('view.variable_costs')" :active="request()->routeIs('dashboard1')">
                                     {{ __('Переменные Затраты') }}
