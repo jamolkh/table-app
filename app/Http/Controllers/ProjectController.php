@@ -22,14 +22,26 @@ class ProjectController extends Controller
     public function update(Project $project, Request $request)
     {
         $month_fixed_costs_edits = $request->get('month_fixed_costs');
+        $month_variable_costs_edits = $request->get('month_variable_costs');
         $fixed_costs = $project->costs()->where('type', 'fixed')->get();
+        $variable_costs = $project->costs()->where('type', 'variable')->get();
         foreach($fixed_costs as $cost)
         {
 
-                for($i=0; $i<count($month_fixed_costs_edits); $i++)
+                for($i=0; $i<$project->term; $i++)
                 {
                     $cost->month_costs[$i]->update([
                         'amount' => $month_fixed_costs_edits[$i]
+                    ]);
+                }
+        }
+        foreach($variable_costs as $cost)
+        {
+
+                for($i=0; $i<$project->term; $i++)
+                {
+                    $cost->month_costs[$i]->update([
+                        'amount' => $month_variable_costs_edits[$i]
                     ]);
                 }
         }

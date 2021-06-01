@@ -6,19 +6,19 @@
 
 
 <div class="w-full max-w-xs container mx-auto"  >
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="{{route('store.costs')}}">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="{{route('store.costs', ['project'=>$project])}}">
         @csrf
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="Название">
           Название
         </label>
-        <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+        <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Название затраты">
       </div>
       <div class="mb-6">
         <label  class="block text-gray-700 text-sm font-bold mb-2" for="Сумма">
           Сумма
         </label>
-        <input name="amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+        <input name="amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Сумма">
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="costs">

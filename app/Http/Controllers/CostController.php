@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cost;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -24,14 +25,29 @@ class CostController extends Controller
         $costs = Cost::where('type', 'variable')->get();
         return view('costs', ['costs' => $costs]);
     }
-    public function store(Request $request)
+    public function store(Project $project, Request $request)
     {
 
-        Cost::create([
+        $cost = Cost::create([
             'name' => $request->input('name'),
             'amount' => $request->input('amount'),
-            'type' => $request->input('type')
+            'type' => $request->input('type'),
+            'project_id' => $project->id
         ]);
-        return redirect()->route('view.variable_costs');
+        for($i=1; $i<=$project->term; $i++)
+        {
+        $cost->month_costs()->create([
+            'amount' => '0',
+            'month_order' => $i
+        ]);
+        }
+        $fixedCosts = Cost::where('project_id', $project->id)->where('type', 'fixed')->get();
+        $variableCosts = Cost::where('project_id', $project->id)->where('type', 'variable')->get();
+        return view('project', ['fixedCosts' => $fixedCosts, 'variableCosts'=>$variableCosts, 'project'=>$project]);
+    }
+
+    public function create(Project $project)
+    {
+        return view('form', ['project'=>$project]);
     }
 }
