@@ -4,8 +4,9 @@
     </x-slot>
 
     <div class="flex justify-center my-5">
-        @if ($fixedCosts)
-        <x-table :fixedCosts="$fixedCosts" :variableCosts="$variableCosts" :project="$project" />
+
+        @if ($project)
+        <x-table-edit :project="$project"/>
         @endif
         {{-- {{dd($month_costs)}} --}}
     </div>

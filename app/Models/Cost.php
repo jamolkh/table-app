@@ -16,4 +16,9 @@ class Cost extends Model
         return 'Переменные Затраты';
     }
 
+    public function month_costs()
+    {
+        return $this->hasMany(MonthCost::class);
+    }
+
 }

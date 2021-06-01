@@ -30,6 +30,8 @@ Route::post('/costs',[CostController::class, 'store'])->middleware(['auth'])->na
 Route::get('/projects', [ProjectController::class, 'index'])->middleware(['auth'])->name('projects.view');
 Route::post('/projects',[ProjectController::class, 'store'])->middleware(['auth'])->name('projects.store');
 Route::get('/projects/{project:slug}/costs', [ProjectCostController::class, 'index'])->name('project.costs.index');
+Route::put('/projects/{project:slug}',[ProjectController::class, 'update'])->middleware(['auth'])->name('project.update');
+Route::get('/project/{project:slug}/edit', [ProjectController::class, 'edit'])->name('project.edit');
 Route::get('/form1', function(){
     return view('form1');
 })->name('form1');
