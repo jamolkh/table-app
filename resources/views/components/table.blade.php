@@ -12,7 +12,7 @@
             <table class="shadow-lg bg-white table-fixed">
                 <thead>
                 <tr>
-                <th class="bg-blue-100 border text-left px-8 py-4 w-1/12">Должность</th>
+                <th class="bg-blue-100 border text-left px-8 py-4 w-1/12">Переменные Затраты</th>
                 <th class="bg-blue-100 border text-left px-8 py-4 w-1/12">Плановый показатель</th>
                 @for ($i = 1; $i <=$project->term; $i++)
                 <th class="bg-blue-100 border text-left px-8 py-4">Месяц {{$i}}</th>
@@ -21,7 +21,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($fixedCosts as $cost)
+                    @foreach ($variableCosts as $cost)
                 <tr>
                 <td class="border px-8 py-4">{{$cost->name}}</td>
                 <td class="border px-2 py-2">{{$cost->amount}} сум</td>
@@ -31,6 +31,33 @@
 
                 </tr>
                     @endforeach
+                </tbody>
+            </table>
+
+            <h1 class="ml-5 text-5xl">Всего</h1>
+            <table class="shadow-lg bg-white table-fixed">
+                <thead>
+                <tr>
+                <th class="bg-blue-100 border text-left px-8 py-4 w-1/12">Переменные Затраты</th>
+                <th class="bg-blue-100 border text-left px-8 py-4 w-1/12">Плановый показатель</th>
+                @for ($i = 1; $i <=$project->term; $i++)
+                <th class="bg-blue-100 border text-left px-8 py-4">Месяц {{$i}}</th>
+                @endfor
+                </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $month_cost_sum = \App\Models\MonthCost::all()
+                    @endphp
+                    {{dd(\App\Models\Cost::where('type', 'variable')->pluck('id'))}}
+                <tr>
+                <td class="border px-8 py-4">Переменные Затраты</td>
+                <td class="border px-2 py-2">{{$variableCosts->sum('amount')}} сум</td>
+                @for ($i = 1; $i <=$project->term; $i++)
+                <td class="border px-2 py-2">{{$month_cost_sum->where('month_order', $i)->sum('amount')}}</td>
+                @endfor
+                </tr>
+
                 </tbody>
             </table>
         </div>
@@ -51,7 +78,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($variableCosts as $cost)
+                    @foreach ($fixedCosts as $cost)
                 <tr>
                 <td class="border px-8 py-4">{{$cost->name}}</td>
                 <td class="border px-2 py-2">{{$cost->amount}} сум</td>

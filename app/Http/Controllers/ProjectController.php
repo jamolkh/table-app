@@ -21,13 +21,13 @@ class ProjectController extends Controller
 
     public function update(Project $project, Request $request)
     {
-        $month_fixed_costs_edits = $request->get('month_fixed_costs');
-        $month_variable_costs_edits = $request->get('month_variable_costs');
+
+
         $fixed_costs = $project->costs()->where('type', 'fixed')->get();
         $variable_costs = $project->costs()->where('type', 'variable')->get();
         foreach($fixed_costs as $cost)
         {
-
+            $month_fixed_costs_edits = $request->get('month_fixed_costs' . $cost->id);
                 for($i=0; $i<$project->term; $i++)
                 {
                     $cost->month_costs[$i]->update([
@@ -37,7 +37,7 @@ class ProjectController extends Controller
         }
         foreach($variable_costs as $cost)
         {
-
+            $month_variable_costs_edits = $request->get('month_variable_costs' . $cost->id);
                 for($i=0; $i<$project->term; $i++)
                 {
                     $cost->month_costs[$i]->update([
