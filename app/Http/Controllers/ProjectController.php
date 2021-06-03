@@ -70,7 +70,18 @@ class ProjectController extends Controller
             'amount' => 100,
             'type' => 'variable'
         ]);
-
+        // $newProjectJob = $newProject->jobs()->create([
+        //     'name' => 'Проект 1',
+        //     'amount' => 10000000,
+        // ]);
+        // for($i=1; $i<=$newProject->term; $i++)
+        // {
+        // $newProjectJob->month_jobs()->create([
+        //     'job_amount' => 0,
+        //     'amount' => 0,
+        //     'month_order' => $i
+        // ]);
+        // }
         for($i=1; $i<=$newProject->term; $i++)
         {
         $newProjectFixedCosts->month_costs()->create([

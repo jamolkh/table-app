@@ -25,6 +25,15 @@ class CostController extends Controller
         $costs = Cost::where('type', 'variable')->get();
         return view('costs', ['costs' => $costs]);
     }
+
+    public function destroy(Project $project, Cost $cost)
+    {
+        $cost->delete();
+        $fixedCosts = Cost::where('project_id', $project->id)->where('type', 'fixed')->get();
+        $variableCosts = Cost::where('project_id', $project->id)->where('type', 'variable')->get();
+        return view('project', ['fixedCosts' => $fixedCosts, 'variableCosts'=>$variableCosts, 'project'=>$project]);
+    }
+
     public function store(Project $project, Request $request)
     {
 

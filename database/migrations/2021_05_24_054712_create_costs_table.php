@@ -18,7 +18,7 @@ class CreateCostsTable extends Migration
             $table->string('name');
             $table->enum('type', ['fixed', 'variable']);
             $table->bigInteger('amount');
-            $table->foreignId('project_id')->constrained();
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
         });
     }
 

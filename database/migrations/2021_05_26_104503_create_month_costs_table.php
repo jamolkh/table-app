@@ -17,7 +17,7 @@ class CreateMonthCostsTable extends Migration
             $table->id();
             $table->bigInteger('amount');
             $table->integer('month_order');
-            $table->foreignId('cost_id')->constrained();
+            $table->foreignId('cost_id')->constrained()->onDelete('cascade');
         });
     }
 

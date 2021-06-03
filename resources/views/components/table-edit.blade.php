@@ -22,7 +22,7 @@
                     <td class="border px-8 py-4">{{$cost->name}}</td>
                     <td class="border px-2 py-2"><input name="cost"   type="text" class="w-3/4 text-xs"  value="{{$cost->amount}}">сум</td>
                         @foreach ($cost->month_costs as $month_cost)
-                        <td class="border px-2 py-2"><input  name="month_fixed_costs{{$cost->id}}[]" type="text" class="w-3/4 text-xs"  value="{{$month_cost->amount}}">сум</td>
+                        <td class="border px-2 py-2"><input  name="month_variable_costs{{$cost->id}}[]" type="text" class="w-3/4 text-xs"  value="{{$month_cost->amount}}">сум</td>
                         @endforeach
 
                     </tr>
@@ -47,7 +47,7 @@
                     <td class="border px-8 py-4">{{$cost->name}}</td>
                     <td class="border px-2 py-2"><input name="cost"   type="text" class="w-3/4 text-xs"  value="{{$cost->amount}}">сум</td>
                         @foreach ($cost->month_costs as $month_cost)
-                        <td class="border px-2 py-2"><input  name="month_variable_costs[]" type="text" class="w-3/4 text-xs"  value="{{$month_cost->amount}}">сум</td>
+                        <td class="border px-2 py-2"><input  name="month_fixed_costs{{$cost->id}}[]" type="text" class="w-3/4 text-xs"  value="{{$month_cost->amount}}">сум</td>
                         @endforeach
 
                     </tr>
