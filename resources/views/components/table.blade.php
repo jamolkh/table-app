@@ -1,6 +1,7 @@
-<div class="flex flex-col my-4">
+
 
         <div class="relative">
+            <div class="flex justify-center"><h1 class="text-2xl">{{$header}}</h1></div>
 
             <table class="shadow-lg bg-white table-fixed">
                 <thead>
@@ -32,7 +33,8 @@
                     @endforeach
                 </tbody>
             </table>
-            <h1 class="ml-5 text-2xl">Всего {{$header}}</h1>
+            <div class="flex justify-center"><h1 class="ml-5 text-2xl">Всего {{$header}}</h1></h1></div>
+
             <table class="shadow-lg bg-white table-fixed">
                 <thead>
                 <tr>
@@ -47,8 +49,9 @@
                 <tr>
                 <td class="border px-8 py-4">{{$header}}</td>
                 <td class="border px-2 py-2">{{$costs->sum('amount')}} сум</td>
+
                 @for ($i = 1; $i <=$project->term; $i++)
-                <td class="border px-2 py-2">{{$costs->first()->month_total_variable_cost($costs->first()->getRawOriginal('type'),$i)}}</td>
+                <td class="border px-2 py-2">{{$project->costs()->first()->month_total_variable_cost($costs->first()->getRawOriginal('type'),$i, $project)}}</td>
                 @endfor
                 </tr>
 
@@ -56,5 +59,3 @@
             </table>
         </div>
         {{--  --}}
-
-</div>

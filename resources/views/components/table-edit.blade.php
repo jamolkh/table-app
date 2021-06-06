@@ -54,6 +54,30 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <table class="shadow-lg bg-white table-fixed text-xs my-10">
+                    <thead>
+                    <tr>
+                    <th class="bg-blue-100 border text-left px-8 py-4 w-1/10">Обьем Выполненных работ</th>
+                    @for ($i = 1; $i <=$project->term; $i++)
+                    <th class="bg-blue-100 border text-left px-8 py-4">Месяц {{$i}}</th>
+                    @endfor
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($project->jobs as $job)
+                    <tr>
+                    <td class="border px-8 py-4">Количество выполненных заказов</td>
+
+                        @foreach ($job->month_jobs as $month_job)
+                        <td class="border px-2 py-2"><input  name="month_jobs{{$job->id}}[]" type="text" class="w-3/4 text-xs"  value="{{$month_job->job_amount}}">сум</td>
+                        @endforeach
+
+                    </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounde my-5" type="submit">Submit</button>
             </form>
         </div>

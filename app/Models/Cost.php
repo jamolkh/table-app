@@ -26,10 +26,10 @@ class Cost extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function month_total_variable_cost($type, $i)
+    public function month_total_variable_cost( $type, $i,Project $project)
     {
         $sum=0;
-        $variable_costs = $this->where('type', $type)->get();
+        $variable_costs = $project->costs()->where('type', $type)->get();
         if($variable_costs->first()->month_costs->where('month_order', $i)->first()->amount)
         {
         foreach($variable_costs as $cost)
@@ -37,6 +37,18 @@ class Cost extends Model
             $sum += $cost->month_costs->where('month_order', $i)->first()->amount;
         }
     }
+        return $sum;
+    }
+    public function month_total_cost($i,Project $project)
+    {
+        $sum=0;
+        $costs = $project->costs()->get();
+
+        foreach($costs as $cost)
+        {
+            $sum += $cost->month_costs->where('month_order', $i)->first()->amount;
+        }
+
         return $sum;
     }
 

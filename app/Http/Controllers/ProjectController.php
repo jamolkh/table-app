@@ -25,6 +25,18 @@ class ProjectController extends Controller
 
         $fixed_costs = $project->costs()->where('type', 'fixed')->get();
         $variable_costs = $project->costs()->where('type', 'variable')->get();
+        $jobs = $project->jobs()->get();
+        foreach($jobs as $job)
+        {
+            $jobs_edit = $request->get('month_jobs' . $job->id);
+            for($i=0;$i<$project->term;$i++)
+            {
+                $job->month_jobs[$i]->update([
+                    'job_amount'=> $jobs_edit[$i],
+                    'amount' => $jobs_edit[$i] * 240000
+                ]);
+            }
+        }
         foreach($fixed_costs as $cost)
         {
             $month_fixed_costs_edits = $request->get('month_fixed_costs' . $cost->id);
@@ -60,42 +72,42 @@ class ProjectController extends Controller
             'term' => $request->input('term'),
         ]);
 
-        $newProjectFixedCosts = $newProject->costs()->create([
-            'name' => 'test',
-            'amount' => 100,
-            'type' => 'fixed'
-        ]);
-        $newProjectVariableCosts = $newProject->costs()->create([
-            'name' => 'test',
-            'amount' => 100,
-            'type' => 'variable'
-        ]);
-        // $newProjectJob = $newProject->jobs()->create([
-        //     'name' => 'Проект 1',
-        //     'amount' => 10000000,
+        // $newProjectFixedCosts = $newProject->costs()->create([
+        //     'name' => 'test',
+        //     'amount' => 100,
+        //     'type' => 'fixed'
         // ]);
+        // $newProjectVariableCosts = $newProject->costs()->create([
+        //     'name' => 'test',
+        //     'amount' => 100,
+        //     'type' => 'variable'
+        // ]);
+        $newProjectJob = $newProject->jobs()->create([
+            'name' => 'Проект 1',
+            'amount' => 10000000,
+        ]);
+        for($i=1; $i<=$newProject->term; $i++)
+        {
+        $newProjectJob->month_jobs()->create([
+            'job_amount' => 0,
+            'amount' => 0,
+            'month_order' => $i
+        ]);
+        }
         // for($i=1; $i<=$newProject->term; $i++)
         // {
-        // $newProjectJob->month_jobs()->create([
-        //     'job_amount' => 0,
-        //     'amount' => 0,
+        // $newProjectFixedCosts->month_costs()->create([
+        //     'amount' => '100000',
         //     'month_order' => $i
         // ]);
         // }
-        for($i=1; $i<=$newProject->term; $i++)
-        {
-        $newProjectFixedCosts->month_costs()->create([
-            'amount' => '100000',
-            'month_order' => $i
-        ]);
-        }
-        for($i=1; $i<=$newProject->term; $i++)
-        {
-        $newProjectVariableCosts->month_costs()->create([
-            'amount' => '100000',
-            'month_order' => $i
-        ]);
-        }
+        // for($i=1; $i<=$newProject->term; $i++)
+        // {
+        // $newProjectVariableCosts->month_costs()->create([
+        //     'amount' => '100000',
+        //     'month_order' => $i
+        // ]);
+        // }
         return view('dashboard');
     }
 }
