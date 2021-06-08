@@ -39,12 +39,16 @@ class ProjectController extends Controller
         }
         foreach($fixed_costs as $cost)
         {
+
             $month_fixed_costs_edits = $request->get('month_fixed_costs' . $cost->id);
                 for($i=0; $i<$project->term; $i++)
                 {
                     $cost->month_costs[$i]->update([
                         'amount' => $month_fixed_costs_edits[$i]
                     ]);
+
+                    $cost->total_month_costs[$i]->amount += $month_fixed_costs_edits[$i];
+                    $cost->total_month_costs[$i]->save();
                 }
         }
         foreach($variable_costs as $cost)
@@ -72,6 +76,7 @@ class ProjectController extends Controller
             'term' => $request->input('term'),
         ]);
 
+        $newProject->total_costs()->create();
         // $newProjectFixedCosts = $newProject->costs()->create([
         //     'name' => 'test',
         //     'amount' => 100,

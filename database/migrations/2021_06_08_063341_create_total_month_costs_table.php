@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTotalCostsTable extends Migration
+class CreateTotalMonthCostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTotalCostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('total_costs', function (Blueprint $table) {
+        Schema::create('total_month_costs', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_variable_cost')->nullable();
-            $table->integer('total_fixed_cost')->nullable();
-            $table->integer('total_cost')->nullable();
-            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cost_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('amount')->default(0);
+            $table->integer('month_order');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTotalCostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('total_costs');
+        Schema::dropIfExists('total_month_costs');
     }
 }

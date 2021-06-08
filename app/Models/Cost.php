@@ -26,17 +26,32 @@ class Cost extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function total_month_costs()
+    {
+        return $this->hasMany(TotalMonthCost::class);
+    }
+
+    // public function getAmountAttribute($value)
+    // {
+    //     return number_format($value);
+    // }
+
+    public function amount_format()
+    {
+        return number_format($this->amount);
+    }
+
     public function month_total_variable_cost( $type, $i,Project $project)
     {
         $sum=0;
-        $variable_costs = $project->costs()->where('type', $type)->get();
-        if($variable_costs->first()->month_costs->where('month_order', $i)->first()->amount)
+        $costs = $project->costs()->where('type', $type)->get();
+        if($costs->first()->month_costs->where('month_order', $i)->first()->amount)
         {
-        foreach($variable_costs as $cost)
+        foreach($costs as $cost)
         {
             $sum += $cost->month_costs->where('month_order', $i)->first()->amount;
         }
-    }
+        }
         return $sum;
     }
     public function month_total_cost($i,Project $project)

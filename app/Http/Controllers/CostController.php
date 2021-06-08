@@ -43,11 +43,32 @@ class CostController extends Controller
             'type' => $request->input('type'),
             'project_id' => $project->id
         ]);
+
+        if($request->input('type')=='fixed')
+        {
+            $project->total_costs()->update([
+                'total_fixed_cost' => $project->costs()->where('type', 'fixed')->sum('amount')
+            ]);
+        }
+        if($request->input('type')=='variable')
+        {
+            $project->total_costs()->update([
+                'total_variable_cost' => $project->costs()->where('type', 'variable')->sum('amount')
+            ]);
+        }
+        $project->total_costs()->update([
+            'total_cost' => $project->costs()->sum('amount')
+        ]);
+
         for($i=1; $i<=$project->term; $i++)
         {
         $cost->month_costs()->create([
             'amount' => '0',
             'month_order' => $i
+        ]);
+        $cost->total_month_costs()->create([
+            'amount' => 0,
+            'month_order'=> $i
         ]);
         }
         $fixedCosts = Cost::where('project_id', $project->id)->where('type', 'fixed')->get();

@@ -24,10 +24,10 @@
                         @method('DELETE')
                     <button><i class="fas fa-minus-circle fa-2x absolute left-2 text-red-500 cursor-pointer"></i></button>
                 </form><span class = "mx-1">{{$cost->name}}</span></td>
-                <td class="border px-2 py-2">{{$cost->amount}} сум</td>
+                <td class="border px-2 py-2">{{$cost->amount_format()}} сум</td>
                     @foreach ($cost->month_costs as $month_cost)
 
-                    <td class="border px-2 py-2"> {{$month_cost->amount}} сум</td>
+                    <td class="border px-2 py-2"> {{$month_cost->amount_format()}} сум</td>
                     @endforeach
                 </tr>
                     @endforeach
@@ -48,10 +48,16 @@
                 <tbody>
                 <tr>
                 <td class="border px-8 py-4">{{$header}}</td>
-                <td class="border px-2 py-2">{{$costs->sum('amount')}} сум</td>
+
+                    @if ($costs->first()->getRawOriginal('type') === 'variable')
+                    <td class="border px-2 py-2">{{number_format($project->total_costs()->first()->total_variable_cost)}} сум</td>
+                    @else
+                    <td class="border px-2 py-2">{{number_format($project->total_costs()->first()->total_fixed_cost)}} сум</td>
+                    @endif
+
 
                 @for ($i = 1; $i <=$project->term; $i++)
-                <td class="border px-2 py-2">{{$project->costs()->first()->month_total_variable_cost($costs->first()->getRawOriginal('type'),$i, $project)}}</td>
+                <td class="border px-2 py-2">{{number_format($project->costs()->first()->month_total_variable_cost($costs->first()->getRawOriginal('type'),$i, $project))}} сум</td>
                 @endfor
                 </tr>
 

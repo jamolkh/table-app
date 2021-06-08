@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CostController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectCostController;
 
@@ -34,6 +35,10 @@ Route::get('/projects/{project:slug}/costs', [ProjectCostController::class, 'ind
 Route::put('/projects/{project:slug}',[ProjectController::class, 'update'])->middleware(['auth'])->name('project.update');
 Route::get('/project/{project:slug}/edit', [ProjectController::class, 'edit'])->name('project.edit');
 Route::get('/project/{project:slug}/cost/create', [CostController::class, 'create'])->name('cost.create');
+Route::get('/project/{project:slug}/job/create', [JobController::class, 'create'])->name('job.create');
+Route::post('/{project:slug}/jobs/',[JobController::class, 'store'])->middleware(['auth'])->name('job.store');
+
+
 Route::get('/form1', function(){
     return view('form1');
 })->name('form1');

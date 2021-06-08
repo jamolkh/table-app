@@ -15,4 +15,9 @@ class MonthCost extends Model
     {
         return $this->belongsTo(Cost::class);
     }
+    public function amount_format()
+    {
+        return number_format($this->amount);
+    }
+
 }

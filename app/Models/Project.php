@@ -25,4 +25,8 @@ class Project extends Model
         return $this->hasMany(Job::class);
     }
 
+    public function total_costs()
+    {
+        return $this->hasMany(TotalCost::class);
+    }
 }
